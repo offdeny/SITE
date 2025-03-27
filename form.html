@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма</title>
+    <title>Форма ввода</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Мой проект</a>
+            <a class="navbar-brand" href="index.html">Парсер вакансий</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
@@ -22,16 +22,64 @@
     </nav>
 
     <div class="container mt-4">
-        <h1>Форма ввода</h1>
+        <h1 class="mb-4">Введите данные</h1>
+        
         <form>
             <div class="mb-3">
-                <label class="form-label">Поисковый запрос</label>
-                <input type="text" class="form-control">
+                <label class="form-label">Выберите ресурс:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resource" id="hh" value="hh" checked>
+                    <label class="form-check-label" for="hh">HH (HeadHunter)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="resource" id="github" value="github">
+                    <label class="form-check-label" for="github">GitHub</label>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Отправить</button>
+
+            <!-- Поля для HH -->
+            <div id="hh-fields">
+                <div class="mb-3">
+                    <label for="keyword" class="form-label">Ключевое слово:</label>
+                    <input type="text" class="form-control" id="keyword" placeholder="Например, C# разработчик">
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Местоположение:</label>
+                    <input type="text" class="form-control" id="location" placeholder="Например, Ростов-на-Дону">
+                </div>
+            </div>
+
+            <!-- Поля для GitHub (изначально скрыты) -->
+            <div id="github-fields" style="display: none;">
+                <div class="mb-3">
+                    <label for="repo" class="form-label">Репозиторий:</label>
+                    <input type="text" class="form-control" id="repo" placeholder="Например, microsoft/dotnet">
+                </div>
+                <div class="mb-3">
+                    <label for="tech" class="form-label">Технология:</label>
+                    <input type="text" class="form-control" id="tech" placeholder="Например, C#">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Отправить</button>
         </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Переключение между полями HH и GitHub
+        document.querySelectorAll('input[name="resource"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'hh') {
+                    document.getElementById('hh-fields').style.display = 'block';
+                    document.getElementById('github-fields').style.display = 'none';
+                } else {
+                    document.getElementById('hh-fields').style.display = 'none';
+                    document.getElementById('github-fields').style.display = 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
